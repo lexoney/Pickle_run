@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Pickle Run</title>
+  <style>
+    body { margin: 0; background: #87ceeb; overflow: hidden; }
+    canvas { display: block; margin: auto; background: #5cb85c; }
+  </style>
+</head>
+<body>
+  <canvas id="game" width="640" height="360"></canvas>
+
+  <script>
+    const canvas = document.getElementById("game");
+    const ctx = canvas.getContext("2d");
+
+    let x = 80;
+    let y = 260;
+    let gravity = 1;
+    let velocity = 0;
+
+    function loop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // ground
+      ctx.fillStyle = "#3e8e41";
+      ctx.fillRect(0, 300, 640, 60);
+
+      // runner
+      ctx.fillStyle = "#ff7777";
+      ctx.fillRect(x, y, 40, 40);
+
+      velocity += gravity;
+      y += velocity;
+
+      if (y > 260) {
+        y = 260;
+        velocity = 0;
+      }
+
+      requestAnimationFrame(loop);
+    }
+
+    document.addEventListener("click", () => {
+      if (y >= 260) velocity = -15;
+    });
+
+    loop();
+  </script>
+</body>
+</html>
